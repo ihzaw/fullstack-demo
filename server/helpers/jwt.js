@@ -6,6 +6,12 @@ const signToken = (creds) => {
   return token
 }
 
+const checkToken = (token) => {
+  const user = jwt.verify(token, secretKey)
+  return user
+}
+
 module.exports = {
-  signToken
+  signToken,
+  checkToken
 }

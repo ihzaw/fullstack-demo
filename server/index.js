@@ -3,7 +3,9 @@ const app = express();
 require('dotenv').config()
 
 const UserController = require("./controllers/UserController");
+const JobController = require("./controllers/JobController");
 const { authenticate } = require("./middlewares/authenticate");
+const { errorHandler } = require("./middlewares/errorHandler");
 const port = process.env.PORT;
 
 
@@ -16,7 +18,11 @@ app.get("/", (req, res) => {
 app.post("/login", (req, res) => UserController.login(req, res));
 
 app.use(authenticate);
-app.get("/something", (req, res) => UserController.getAll(req, res));
+
+app.get("/getJobList", (req, res, next) => JobController.getAll(req, res, next));
+app.get("/getJobDetail/:id", (req, res, next) => JobController.getDetail(req, res, next))
+
+app.use(errorHandler)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

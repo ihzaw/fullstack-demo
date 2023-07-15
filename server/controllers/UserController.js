@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { sequelize, Sequelize } = require("../models");
+const { sequelize } = require("../models");
 const { signToken } = require("../helpers/jwt");
 const UserModel = require("../models/user")(sequelize, DataTypes);
 
@@ -23,10 +23,6 @@ const login = async (req, res, next) => {
   }
 };
 
-const getAll = (req, res, next) => {
-};
-
 module.exports = {
   login,
-  getAll,
 };
