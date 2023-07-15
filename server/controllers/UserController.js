@@ -6,7 +6,8 @@ const UserModel = require("../models/user")(sequelize, DataTypes);
 const login = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    if (!username || !password) throw { code: 401, message: "Bad Request" };
+    console.log(req.body)
+    if (!username || !password) throw { code: 400, message: "Bad Request" };
 
     const user = await UserModel.findOne({
       where: { username, password },
@@ -16,8 +17,7 @@ const login = async (req, res, next) => {
     if (!user) throw { code: 404, message: "user not found" };
 
     const token = signToken(user);
-    res.setHeader("token", token);
-    res.status(200).json({ code: 200, message: "success" });
+    res.status(200).json({ code: 200, message: "success", token });
   } catch (err) {
     res.status(err.code).json(err);
   }
