@@ -3,6 +3,7 @@ const { userExists } = require("../services/UserService");
 
 const authenticate = (req, res, next) => {
   const { authorization } = req.headers;
+  console.log(req.headers)
   if (!authorization) {
     // const error = new Error({type: "UNAUTHORIZED"});
     const error = new Error("UNAUTHORIZED");

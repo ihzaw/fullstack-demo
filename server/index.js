@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
 require('dotenv').config()
 
 const UserController = require("./controllers/UserController");
@@ -11,14 +12,11 @@ const port = process.env.PORT;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+app.use(cors())
 
 app.post("/login", (req, res) => UserController.login(req, res));
 
 app.use(authenticate);
-
 app.get("/getJobList", (req, res, next) => JobController.getAll(req, res, next));
 app.get("/getJobDetail/:id", (req, res, next) => JobController.getDetail(req, res, next))
 
